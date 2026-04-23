@@ -131,7 +131,7 @@ h1.headline .outline{
 .sky .hill.back{opacity:.55;bottom:30%;filter:blur(1px)}
 .window::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#1f1a15;z-index:3}
 .window::after{content:"";position:absolute;top:50%;left:0;right:0;height:2px;background:#1f1a15;z-index:3}
-.blind{position:absolute;left:-4px;right:-4px;top:-10px;height:var(--blind-h,60%);
+.blind{position:absolute;left:-4px;right:-4px;top:-10px;height:calc(var(--blind-h,60%) + 10px);
   background:
     linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.1) 8%, transparent 18%),
     repeating-linear-gradient(180deg, #d8cdb8 0 4px, #c9bca3 4px 5px),
@@ -149,7 +149,7 @@ h1.headline .outline{
 
 /* floating remote "card" */
 .remote{
-  position:absolute;right:-24px;bottom:40px;width:260px;z-index:3;
+  position:absolute;right:-24px;bottom:40px;width:260px;z-index:10;
   background:var(--red);color:#fff;padding:22px 20px 24px;transform:rotate(-6deg);
   box-shadow:0 24px 60px -10px rgba(232,33,28,.4), 14px 14px 0 rgba(0,0,0,.7);
   border:1px solid rgba(0,0,0,.3);

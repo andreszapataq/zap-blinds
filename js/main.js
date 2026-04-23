@@ -11,7 +11,7 @@ const render = () => {
   bar.style.setProperty('--pos', pct + '%');
   pctEl.textContent = Math.round(pct) + '%';
   if (blind) {
-    const blindH = 100 - pct * 0.95;
+    const blindH = 100 - pct;
     blind.style.setProperty('--blind-h', blindH + '%');
   }
   if (lightCast) {
@@ -42,16 +42,36 @@ document.querySelectorAll('#remote .remote-keys button').forEach(b => {
     else if (act === 'stop') stop();
     else if (act === 'p1') { stop(); setPct(100); }
     else if (act === 'p2') { stop(); setPct(50); }
-    else if (act === 'p3') { stop(); setPct(5); }
+    else if (act === 'p3') { stop(); setPct(0); }
   });
 });
 
-// form — no real submit
-document.getElementById('quote').addEventListener('submit', e => {
+// form — submits to Formspree via fetch
+document.getElementById('quote').addEventListener('submit', async e => {
   e.preventDefault();
-  const btn = e.target.querySelector('button');
-  btn.innerHTML = '✓ Sent · We\'ll be in touch within 24 h';
-  btn.style.background = 'var(--red)';
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const originalHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('https://formspree.io/f/xdayynlp', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
+    });
+    if (res.ok) {
+      btn.innerHTML = '✓ Sent · We\'ll be in touch within 24 h';
+      form.reset();
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+    }
+  } catch {
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+  }
 });
 
 // live-ish animation on channels strip
