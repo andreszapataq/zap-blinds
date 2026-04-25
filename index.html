@@ -269,7 +269,7 @@
     </div>
     <div class="photos">
       <div class="tile s-lg">
-        <div class="ph b"></div>
+        <img src="uploads/photos/charleston-residential.jpg" alt="Charleston penthouse panoramic roller shades">
         <div class="tile-meta"><span class="tag">PHOTO</span><span class="tag">RESIDENTIAL</span></div>
         <div class="tile-label">
           <div><b>Charleston penthouse</b><small>Panoramic roller · 22 ft run</small></div>
@@ -277,7 +277,7 @@
         </div>
       </div>
       <div class="tile s-sq">
-        <div class="ph c"></div>
+        <img src="uploads/photos/columbia-office.jpg" alt="Downtown Columbia office zebra shades">
         <div class="tile-meta"><span class="tag">PHOTO</span><span class="tag">OFFICE</span></div>
         <div class="tile-label">
           <div><b>Downtown Columbia</b><small>28 zebra shades · scheduled</small></div>
@@ -494,6 +494,17 @@
     <div>Take total control of your privacy.</div>
   </div>
 </footer>
+
+<!-- lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+  </button>
+  <div class="lb-stage">
+    <div class="lb-media" id="lbMedia"></div>
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+</div>
 
 <script src="js/main.js"></script>
 </body>

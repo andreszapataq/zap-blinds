@@ -74,6 +74,64 @@ document.getElementById('quote').addEventListener('submit', async e => {
   }
 });
 
+// lightbox — opens photos and videos in an overlay
+const lb = document.getElementById('lightbox');
+const lbMedia = document.getElementById('lbMedia');
+const lbCaption = document.getElementById('lbCaption');
+const lbClose = document.getElementById('lbClose');
+
+const openLightbox = (src, type, title, sub, alt) => {
+  lbMedia.innerHTML = '';
+  if (type === 'video') {
+    const v = document.createElement('video');
+    v.src = src;
+    v.controls = true;
+    v.autoplay = true;
+    v.playsInline = true;
+    lbMedia.appendChild(v);
+  } else {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = alt || '';
+    lbMedia.appendChild(img);
+  }
+  lbCaption.innerHTML = (title ? `<b>${title}</b>` : '') + (sub || '');
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lb-open');
+};
+
+const closeLightbox = () => {
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lb-open');
+  lbMedia.innerHTML = '';
+};
+
+lbClose.addEventListener('click', closeLightbox);
+lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox(); });
+
+document.querySelectorAll('.tile, .reel').forEach(el => {
+  const img = el.querySelector(':scope > img');
+  const video = el.querySelector(':scope > video');
+  const media = video || img;
+  if (!media) return;
+  el.style.cursor = 'pointer';
+  el.addEventListener('click', ev => {
+    if (ev.target.closest('a')) return;
+    const labelB = el.querySelector('.tile-label b, .reel-label b');
+    const labelS = el.querySelector('.tile-label small, .reel-label small');
+    openLightbox(
+      media.src || media.currentSrc,
+      video ? 'video' : 'photo',
+      labelB ? labelB.textContent : '',
+      labelS ? labelS.textContent : '',
+      media.alt
+    );
+  });
+});
+
 // live-ish animation on channels strip
 const bars = document.querySelectorAll('.chan-bar i');
 setInterval(() => {
