@@ -101,7 +101,7 @@ const openLightbox = (src, type, title, sub, alt) => {
   lbMedia.innerHTML = '';
   if (type === 'video') {
     const v = document.createElement('video');
-    v.src = src;
+    v.src = src.split('#')[0];
     v.controls = true;
     v.autoplay = true;
     v.playsInline = true;
