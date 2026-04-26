@@ -74,6 +74,23 @@ document.getElementById('quote').addEventListener('submit', async e => {
   }
 });
 
+// auto-fill reel duration tags from video metadata
+document.querySelectorAll('.reel').forEach(reel => {
+  const v = reel.querySelector('video');
+  const tag = reel.querySelector('.reel-meta .tag.red');
+  if (!v || !tag) return;
+  const update = () => {
+    if (!isFinite(v.duration)) return;
+    const m = Math.floor(v.duration / 60);
+    const s = Math.floor(v.duration % 60);
+    const time = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    const prefix = tag.textContent.includes('REEL') ? '● REEL · ' : '● ';
+    tag.textContent = prefix + time;
+  };
+  if (v.readyState >= 1) update();
+  else v.addEventListener('loadedmetadata', update);
+});
+
 // lightbox — opens photos and videos in an overlay
 const lb = document.getElementById('lightbox');
 const lbMedia = document.getElementById('lbMedia');
