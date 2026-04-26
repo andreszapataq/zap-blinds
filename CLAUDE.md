@@ -4,12 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development
 
-No build step — the site is a single `index.html` file. Open it directly in a browser or serve it locally:
-
-```bash
-python3 -m http.server 8080
-# then open http://localhost:8080
-```
+No build step — the site is a single `index.html` file.
 
 ## Architecture
 
